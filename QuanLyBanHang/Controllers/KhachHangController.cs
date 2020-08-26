@@ -67,12 +67,59 @@ namespace QuanLyBanHang.Controllers
             }
             return View("Index", khachhangbusiness.Index());
         }
+        [HttpPost]
+        public JsonResult AddKH1(KhachHang kh)
+        {
+            KHACHHANG kHACHHANG = new KHACHHANG();
+            bool status;
+            try
+            {
+                kHACHHANG.MaKH = kh.makh;
+                kHACHHANG.HoTenKH = kh.hotenkh;
+                kHACHHANG.DiaChi = kh.diachi;
+                kHACHHANG.DienThoai = kh.dienthoai;
+                db.KHACHHANGs.InsertOnSubmit(kHACHHANG);
+                db.SubmitChanges();
+                status = true;
+            }
+            catch(Exception)
+            {
+                status = false;
+            }
+            return Json(status, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult EditKH(KhachHang kh)
+        {
+            KHACHHANG kHACHHANG = new KHACHHANG();
+            kHACHHANG = db.KHACHHANGs.FirstOrDefault(n => n.MaKH == kh.makh);
+            bool status = false;
+            if(kHACHHANG!= null)
+            {
+                kHACHHANG.HoTenKH = kh.hotenkh;
+                kHACHHANG.DiaChi = kh.diachi;
+                kHACHHANG.DienThoai = kh.dienthoai;
+                db.SubmitChanges();
+                status = true;
+            }
+            return Json(status, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
         public JsonResult Delete(string id)
         {
-            KHACHHANG khachhang = khachhangbusiness.getKH(id);
-            db.KHACHHANGs.DeleteAllOnSubmit(db.KHACHHANGs.Where(n => n.MaKH == id));
-            db.SubmitChanges();
-            return Json(khachhangbusiness.getAllKH(),JsonRequestBehavior.AllowGet);
+            bool status;
+            try
+            {
+                KHACHHANG Kh = khachhangbusiness.getKH(id);
+                db.KHACHHANGs.DeleteAllOnSubmit(db.KHACHHANGs.Where(n => n.MaKH == id));
+                db.SubmitChanges();
+                status = true;
+            }
+            catch(Exception)
+            {
+                status = false;
+            }
+            return Json(status, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,0 +1,128 @@
+﻿@model IEnumerable<QuanLyBanHang.Models.NhanVien>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-8 mx-auto">
+            <h2 style="color:blue;text-align:center">THÔNG TIN NHÂN VIÊN</h2>
+            @using (Html.BeginForm())
+            {
+                <div class="form-group">
+                    <label for="MaNV">Mã nhân viên:</label>
+                    @Html.TextBox("MaNV", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="HoNV">Họ nhân viên:</label>
+                    @Html.TextBox("HoNV", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="TenNV">Tên nhân viên:</label>
+                    @Html.TextBox("TenNV", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="NgaySinh">Ngày sinh:</label>
+                    @Html.TextBox("NgaySinh", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="GioiTinh">Giới tính:</label>
+                    @Html.TextBox("GioiTinh", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="DiaChi">Địa chỉ:</label>
+                    @Html.TextBox("DiaChi", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="DienThoai">Điện thoại:</label>
+                    @Html.TextBox("DienThoai", null, new { @class = "form-control" })
+                </div>
+                <button class="btn btn-primary" id="btnSave">Add</button>
+            }
+            <table id="tbvn" class="display">
+                <thead>
+                    <tr>
+                        <td>Mã Nhân Viên</td>
+                        <td>Họ Nhân Viên</td>
+                        <td>Tên Nhân Viên</td>
+                        <td>Ngày Sinh</td>
+                        <td>Giới Tính</td>
+                        <td>Địa Chỉ</td>
+                        <td>Điện Thoại</td>
+                    </tr>
+                </thead>
+                <tbody id="lblData">
+                </tbody>
+            </table>
+            <script id="template" type="x-tmpl-mustache">
+                <tr>
+                    <td>{{MaNV}}</td>
+                    <td>{{HoNV}}</td>
+                    <td>{{TenNV}}</td>
+                    <td>{{NgaySinh}}</td>
+                    <td>{{GioiTinh}}</td>
+                    <td>{{DiaChi}}</td>
+                    <td>{{DienThoai}}</td>
+                </tr>
+            </script>
+        </div>
+    </div>
+</div>
+<script>
+    var nhanVienController = {
+        init: function () {
+            nhanVienController.registerEvent();
+        },
+        registerEvent: function () {
+            nhanVienController.getAllNV();
+        },
+        getAllNV: function () {
+            var html = '';
+            $.ajax({
+                url: '/NhanVien/getAllNV',
+                type: 'GET',
+                contentType: "application/json;charset=utf-8",
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result);
+                    for (i = 0; i < result.length; i++) {
+                        var item = result[i];
+                        //conver ngày sinh
+                        var date = item.NgaySinh;
+                        date = new Date(parseInt(date.slice(6, 19)));
+                        var getDate = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear();
+                        html += '<tr>';
+                        html += '<td>' + item.MaNV + '</td>';
+                        html += '<td>' + item.HoNV + '</td>';
+                        html += '<td>' + item.TenNV + '</td>';
+                        html += '<td>' + getDate + '</td>';
+                        html += '<td>' + item.GioiTinh + '</td>';
+                        html += '<td>' + item.DiaChi + '</td>';
+                        html += '<td>' + item.DienThoai + '</td>';
+                        html += '<td> <button class="btn btn-link" onclick="DeleteNV(' + `'` + item.MaNV + `'` + ')">Delete</button></td>';
+                        html += '</tr>';
+                    }
+                    $('#lblData').html(html);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        }
+    }
+    nhanVienController.init();
+    $("#btnSave").click(function () {
+        var kh = {
+            manv: $('#MaNV').val(),
+            honv: $('#HoNV').val(),
+            tennv: $('#TenNV').val(),
+            ngaysinh: $('#NgaySinh').val(),
+            gioitinh: $('#GioiTinh').val(),
+            diachi: $('#DiaChi').val(),
+            dienthoai: $('#DienThoai').val,
+        };
+        $.ajax
+    })
+</script>
+
