@@ -3,6 +3,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="~/Scripts/plugins/mustache.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <div class="container">
     <div class="row">
@@ -38,7 +40,9 @@
                     <label for="DienThoai">Điện thoại:</label>
                     @Html.TextBox("DienThoai", null, new { @class = "form-control" })
                 </div>
-                <button class="btn btn-primary" id="btnSave">Add</button>
+                <div class="btn">
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                </div>
             }
             <table id="tbvn" class="display">
                 <thead>
@@ -69,6 +73,7 @@
         </div>
     </div>
 </div>
+<button id="btnSave">Add</button>
 <script>
     var nhanVienController = {
         init: function () {
@@ -113,7 +118,7 @@
     }
     nhanVienController.init();
     $("#btnSave").click(function () {
-        var kh = {
+        var nv = {
             manv: $('#MaNV').val(),
             honv: $('#HoNV').val(),
             tennv: $('#TenNV').val(),
@@ -122,7 +127,30 @@
             diachi: $('#DiaChi').val(),
             dienthoai: $('#DienThoai').val,
         };
-        $.ajax
+        $.ajax({
+            type: "POST",
+            url: '/NhanVien/SaveNV',
+            data: nv,
+            dataType: 'json',
+            success: function () {
+                nhanVienController.init();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+
     })
+    function DeleleNV(id) {
+        $.ajax({
+            url: '/NhanVien/Delete',
+            type: "POST",
+            data: { id: id },
+            dataType: 'json',
+            success: function () {
+                nhanVienController.init();
+            }
+        })
+    }
 </script>
 
