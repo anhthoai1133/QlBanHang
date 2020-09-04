@@ -32,9 +32,6 @@
                     @Html.TextBox("DienThoai", null, new { @class = "form-control" })
                     <p class="text-danger">@ViewData["Loi4"]</p>
                 </div>
-                <div class="btn">
-                    <button type="submit" class="btn btn-primary">Thêm</button>
-                </div>
                 
             }
             <table id="tbnv" class="display">
@@ -63,20 +60,7 @@
 </div>
 <button id="btnThem">Lưu</button>
 <script>
-    var khachHangConTroller = {
-        init: function () {
-            khachHangConTroller.registerEvent();
-        },
-        registerEvent: function () {
-            khachHangConTroller.getAllKH();
-        },
-        getAllKH: function () {
-            var dataInput = {
-                MaKH: $('#MaKH').val(),
-                HoTenKH: $('#HoTenKH').val(),
-                DiaChi: $('#DiaChi').val(),
-                DienThoai: $('#DienThoai').val(),
-            }
+    function getAllKH() {
             var html = '';
             $.ajax({
                 url: '/KhachHang/GetAllKH',
@@ -87,7 +71,7 @@
                     console.log(result);
                     for (i = 0; i < result.length; i++) {
                         var item = result[i];
-                        html += '<tr>';
+                        html += '<tr onclick="button(' + `'` + item.MaKH + `'` + ',' + `'` + item.HoTenKH + `'` + ',' + `'` + item.DiaChi + `'` + ',' + `'` + item.DienThoai + `'` +')">';
                         html += '<td>' + item.MaKH + '</td>';
                         html += '<td>' + item.HoTenKH + '</td>';
                         html += '<td>' + item.DiaChi + '</td>';
@@ -103,9 +87,8 @@
 
             })  
 
-        }
     }
-    khachHangConTroller.init();
+
     $("#btnThem").click(function () {
         var kh = {
             makh: $('#MaKH').val(),
@@ -119,13 +102,14 @@
             data: kh,
             dataType: 'json',
             success: function () {
-                khachHangConTroller.init();
+                getAllKH();
             },
             error: function (err) {
                 console.log(err);
             }
         })
     })
+
     function DeleleKH(id) {
         $.ajax({
             url: '/KhachHang/Delete',
@@ -133,9 +117,16 @@
             data: {id: id},
             dataType: 'json',
             success: function () {
-                khachHangConTroller.init();
+                getAllKH();
             }
         })
+    }
+    getAllKH();
+    function button(makh, hotenkh, diachi, dienthoai) {
+        $("#MaKH").val(makh);
+        $("#HoTenKH").val(hotenkh);
+        $("#DiaChi").val(diachi);
+        $("#DienThoai").val(dienthoai);
     }
 </script>
 

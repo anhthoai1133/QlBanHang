@@ -11,7 +11,7 @@ namespace QuanLyBanHang.Models
         public string honv { get; set; }
         public string tennv { get; set; }
         public Nullable<DateTime> ngaysinh { get; set; }
-        public Nullable<bool> gioitinh { get; set; }
+        public bool gioitinh { get; set; }
         public string diachi { get; set; }
         public Nullable<int> dienthoai { get; set; }
 
@@ -21,7 +21,7 @@ namespace QuanLyBanHang.Models
             honv = "";
             tennv = "";
             ngaysinh = null;
-            gioitinh = false;
+            gioitinh = true;
             diachi = "";
             dienthoai = 0;
         }

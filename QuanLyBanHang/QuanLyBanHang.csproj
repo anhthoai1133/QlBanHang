@@ -123,9 +123,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="business\businessKhachHang.cs" />
     <Compile Include="business\businessNhanVien.cs" />
+    <Compile Include="business\businessSanPham.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhachHangController.cs" />
     <Compile Include="Controllers\NhanVienController.cs" />
+    <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -136,6 +138,7 @@
     </Compile>
     <Compile Include="Models\KhachHang.cs" />
     <Compile Include="Models\NhanVien.cs" />
+    <Compile Include="Models\SanPham.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +185,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\KhachHang\Index.cshtml" />
     <Content Include="Views\NhanVien\Index.cshtml" />
+    <Content Include="Views\SanPham\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

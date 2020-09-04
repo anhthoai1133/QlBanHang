@@ -22,7 +22,7 @@ namespace QuanLyBanHang.business
                     honv = data.HoNV,
                     tennv = data.TenNV,
                     ngaysinh = data.NgaySinh,
-                    gioitinh = data.Gioitinh,
+                    //gioitinh = data.Gioitinh,
                     diachi = data.DiaChi,
                     dienthoai = data.DienThoai
                 });

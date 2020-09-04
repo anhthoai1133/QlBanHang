@@ -1,0 +1,84 @@
+﻿@model IEnumerable<QuanLyBanHang.Models.SanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-8 mx-auto">
+            <h1 style="color:red;text-align:center">THÔNG TIN SẢN PHẨM</h1>
+            @using(Html.BeginForm())
+            {
+                <div class="form-group">
+                    <label for="MaSP">Mã Sản Phẩm:</label>
+                    @Html.TextBox("MaSP",null,new {@class="form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="TenSP">Tên Sản Phẩm:</label>
+                    @Html.TextBox("TenSP",null,new {@class="form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="DonViTinh">Đơn Vị Tính:</label>
+                    @Html.TextBox("DonViTinh",null,new { @class = "form-control"})
+                </div>
+                <div class="form-group">
+                    <label for="DonGia">Đơn Giá:</label>
+                    @Html.TextBox("DonGia", null, new { @class = "form-control"})
+                </div>
+            }
+            <table id="tbvn" class="display">
+                <thead>
+                    <tr>
+                        <td>Mã Sản Phẩm</td>
+                        <td>Tên Sản Phẩm</td>
+                        <td>Đơn Vị Tính</td>
+                        <td>Đơn Giá</td>
+                    </tr>
+                </thead>
+                <tbody id="tblData"></tbody>
+            </table>
+            <script id="template" type="x-tmpl-mustache">
+                <tr>
+                    <td>{{MaSP}}</td>
+                    <td>{{TenSP}}</td>
+                    <td>{{DonViTinh}}</td>
+                    <td>{{DonGia}}</td>
+                </tr>
+            </script>
+        </div>
+    </div>
+
+</div>
+<button id="btnSave">Save</button>
+<script>
+    function getAllSP() {
+        var html = '';
+        $.ajax({
+            url: '/SanPham/getAllSP',
+            type: 'GET',
+            contentType: "application/json;charset=utf-8",
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                for (i = 0; i < result.length; i++) {
+                    var item = result[i];
+                    html += '<tr>';
+                    html += '<td>' + item.MaSP + '</td>';
+                    html += '<td>' + item.TenSP + '</td>';
+                    html += '<td>' + item.DonViTinh + '</td>';
+                    html += '<td>' + item.DonGia + '</td>';
+                    html += '<td> <button class="btn btn-link" onclick = "DeleteSP(' + `'` + item.MaSP + `'` + ')" > Delete</button></td>';
+                    html += '</tr>';
+                }
+                $('#tblData').html(html);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+
+        })
+    }
+    getAllSP();
+</script>
+

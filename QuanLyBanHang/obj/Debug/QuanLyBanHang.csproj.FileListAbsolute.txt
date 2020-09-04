@@ -49,7 +49,6 @@ C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\bin\System.Web.WebPages.
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\bin\Newtonsoft.Json.xml
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\bin\Antlr3.Runtime.pdb
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.csprojAssemblyReference.cache
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.csproj.CopyComplete
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.dll

@@ -71,39 +71,43 @@ namespace QuanLyBanHang.Controllers
         public JsonResult AddKH1(KhachHang kh)
         {
             KHACHHANG kHACHHANG = new KHACHHANG();
-            bool status;
-            try
-            {
-                kHACHHANG.MaKH = kh.makh;
-                kHACHHANG.HoTenKH = kh.hotenkh;
-                kHACHHANG.DiaChi = kh.diachi;
-                kHACHHANG.DienThoai = kh.dienthoai;
-                db.KHACHHANGs.InsertOnSubmit(kHACHHANG);
-                db.SubmitChanges();
-                status = true;
-            }
-            catch(Exception)
-            {
-                status = false;
-            }
-            return Json(status, JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
-        public JsonResult EditKH(KhachHang kh)
-        {
-            KHACHHANG kHACHHANG = new KHACHHANG();
             kHACHHANG = db.KHACHHANGs.FirstOrDefault(n => n.MaKH == kh.makh);
-            bool status = false;
-            if(kHACHHANG!= null)
+            if(kHACHHANG != null)
             {
                 kHACHHANG.HoTenKH = kh.hotenkh;
                 kHACHHANG.DiaChi = kh.diachi;
                 kHACHHANG.DienThoai = kh.dienthoai;
                 db.SubmitChanges();
-                status = true;
+                
             }
-            return Json(status, JsonRequestBehavior.AllowGet);
+            else
+            {
+                KHACHHANG khachhang = new KHACHHANG();
+                khachhang.MaKH = kh.makh;
+                khachhang.HoTenKH = kh.hotenkh;
+                khachhang.DiaChi = kh.diachi;
+                khachhang.DienThoai = kh.dienthoai;
+                db.KHACHHANGs.InsertOnSubmit(khachhang);
+                db.SubmitChanges();
+            }
+            return Json(JsonRequestBehavior.AllowGet);
         }
+        //[HttpPost]
+        //public JsonResult EditKH(KhachHang kh)
+        //{
+        //    KHACHHANG kHACHHANG = new KHACHHANG();
+        //    kHACHHANG = db.KHACHHANGs.FirstOrDefault(n => n.MaKH == kh.makh);
+        //    bool status = false;
+        //    if(kHACHHANG!= null)
+        //    {
+        //        kHACHHANG.HoTenKH = kh.hotenkh;
+        //        kHACHHANG.DiaChi = kh.diachi;
+        //        kHACHHANG.DienThoai = kh.dienthoai;
+        //        db.SubmitChanges();
+        //        status = true;
+        //    }
+        //    return Json(status, JsonRequestBehavior.AllowGet);
+        //}
         [HttpPost]
         public JsonResult Delete(string id)
         {

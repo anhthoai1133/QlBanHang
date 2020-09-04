@@ -3,7 +3,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="~/Scripts/plugins/mustache.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <div class="container">
@@ -30,7 +29,10 @@
                 </div>
                 <div class="form-group">
                     <label for="GioiTinh">Giới tính:</label>
-                    @Html.TextBox("GioiTinh", null, new { @class = "form-control" })
+                    <select class="form-control" id="GioiTinh" name="GioiTinh">
+                        <option value="1">Nam</option>
+                        <option value="0">Nữ</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="DiaChi">Địa chỉ:</label>
@@ -39,9 +41,6 @@
                 <div class="form-group">
                     <label for="DienThoai">Điện thoại:</label>
                     @Html.TextBox("DienThoai", null, new { @class = "form-control" })
-                </div>
-                <div class="btn">
-                    <button type="submit" class="btn btn-primary">Thêm</button>
                 </div>
             }
             <table id="tbvn" class="display">
@@ -75,14 +74,8 @@
 </div>
 <button id="btnSave">Add</button>
 <script>
-    var nhanVienController = {
-        init: function () {
-            nhanVienController.registerEvent();
-        },
-        registerEvent: function () {
-            nhanVienController.getAllNV();
-        },
-        getAllNV: function () {
+
+        function getAllNV() {
             var html = '';
             $.ajax({
                 url: '/NhanVien/getAllNV',
@@ -97,12 +90,20 @@
                         var date = item.NgaySinh;
                         date = new Date(parseInt(date.slice(6, 19)));
                         var getDate = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear();
-                        html += '<tr>';
+                        //Conver giới tính  
+                        var gioitinh = item.Gioitinh;
+                        if (gioitinh == false) {
+                            gioitinh = "Nữ";
+                        }
+                        else {
+                            gioitinh = "Nam";
+                        }
+                        html += '<tr onclick="hello(' + `'` + item.MaNV + `'` + ', ' + `'` + item.HoNV + `'` + ', ' + `'` + item.TenNV + `'` + ', ' + `'` + getDate + `'` + ', ' + `'` + item.Gioitinh + `'` + ', ' + `'` + item.DiaChi + `'` + ', ' + `'` + item.DienThoai + `'` + ')">';
                         html += '<td>' + item.MaNV + '</td>';
                         html += '<td>' + item.HoNV + '</td>';
                         html += '<td>' + item.TenNV + '</td>';
                         html += '<td>' + getDate + '</td>';
-                        html += '<td>' + item.GioiTinh + '</td>';
+                        html += '<td>' + gioitinh + '</td>';
                         html += '<td>' + item.DiaChi + '</td>';
                         html += '<td>' + item.DienThoai + '</td>';
                         html += '<td> <button class="btn btn-link" onclick="DeleteNV(' + `'` + item.MaNV + `'` + ')">Delete</button></td>';
@@ -115,25 +116,29 @@
                 }
             })
         }
-    }
-    nhanVienController.init();
+
     $("#btnSave").click(function () {
         var nv = {
             manv: $('#MaNV').val(),
             honv: $('#HoNV').val(),
             tennv: $('#TenNV').val(),
             ngaysinh: $('#NgaySinh').val(),
-            gioitinh: $('#GioiTinh').val(),
             diachi: $('#DiaChi').val(),
-            dienthoai: $('#DienThoai').val,
+            dienthoai: $('#DienThoai').val(),
         };
+        if ($("#GioiTinh").val() == "1") {
+            nv.gioitinh = true;
+        }
+        else {
+            nv.gioitinh = false;
+        }
         $.ajax({
             type: "POST",
             url: '/NhanVien/SaveNV',
             data: nv,
             dataType: 'json',
             success: function () {
-                nhanVienController.init();
+                getAllNV();
             },
             error: function (err) {
                 console.log(err);
@@ -141,16 +146,31 @@
         })
 
     })
-    function DeleleNV(id) {
+    function DeleteNV(id) {
         $.ajax({
             url: '/NhanVien/Delete',
             type: "POST",
             data: { id: id },
             dataType: 'json',
             success: function () {
-                nhanVienController.init();
+                getAllNV();
             }
         })
+    }
+    getAllNV();
+    function hello(manv, honv, tennv, ngaysinh, gioitinh, diachi, dienthoai) {
+        $("#MaNV").val(manv);
+        $("#HoNV").val(honv);
+        $("#TenNV").val(tennv);
+        $("#NgaySinh").val(ngaysinh);
+        if (gioitinh.trim().toLowerCase() == "true") {
+            $("#GioiTinh").val(1)
+        }
+        else {
+            $("#GioiTinh").val(0)
+        }
+        $("#DiaChi").val(diachi);
+        $("#DienThoai").val(dienthoai);
     }
 </script>
 
