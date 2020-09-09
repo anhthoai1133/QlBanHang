@@ -53,3 +53,4 @@ C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.csproj.CopyComplete
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.dll
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.pdb
+C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.csprojAssemblyReference.cache

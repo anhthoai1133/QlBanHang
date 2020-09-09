@@ -45,5 +45,13 @@ namespace QuanLyBanHang.Controllers
             }
             return Json(JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public JsonResult DeleteSP(string id)
+        {
+            SANPHAM sp = sanphambusiness.getSP(id);
+            db.SANPHAMs.DeleteAllOnSubmit(db.SANPHAMs.Where(n => n.MaSP == id));
+            db.SubmitChanges();
+            return Json(JsonRequestBehavior.AllowGet);
+        }
     }
 }

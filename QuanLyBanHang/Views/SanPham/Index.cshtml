@@ -63,7 +63,7 @@
                 console.log(result);
                 for (i = 0; i < result.length; i++) {
                     var item = result[i];
-                    html += '<tr>';
+                    html += '<tr onclick="Show(' + `'` + item.MaSP + `'` + ', ' + `'` + item.TenSP + `'` + ', ' + `'` + item.DonViTinh + `'` + ',' + `'` + item.DonGia + `'`+') ">';
                     html += '<td>' + item.MaSP + '</td>';
                     html += '<td>' + item.TenSP + '</td>';
                     html += '<td>' + item.DonViTinh + '</td>';
@@ -78,6 +78,43 @@
             }
 
         })
+    }
+    $("#btnSave").click(function (){
+        var sp = {
+            masp: $('#MaSP').val(),
+            tensp: $('#TenSP').val(),
+            donvitinh: $('#DonViTinh').val(),
+            dongia: $('#DonGia').val(),
+        };
+        $.ajax({
+            url: '/SanPham/SaveSP',
+            type: "POST",
+            data: sp,
+            dataType: 'json',
+            success: function () {
+                getAllSP();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    })
+    function DeleteSP(id) {
+        $.ajax({
+            url: '/SanPham/DeleteSP',
+            type: "POST",
+            data: { id: id },
+            dataType: 'json',
+            success: function () {
+                getAllSP();
+            }
+        })
+    }
+    function Show(masp, tensp, donvitinh, dongia) {
+        $("#MaSP").val(masp);
+        $("#TenSP").val(tensp);
+        $("#DonViTinh").val(donvitinh);
+        $("#DonGia").val(dongia);
     }
     getAllSP();
 </script>
