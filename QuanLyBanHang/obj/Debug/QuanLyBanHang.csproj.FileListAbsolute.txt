@@ -105,8 +105,8 @@ C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\QlBanHang\QuanLyBanHang\
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\QlBanHang\QuanLyBanHang\bin\Newtonsoft.Json.xml
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\QlBanHang\QuanLyBanHang\bin\Antlr3.Runtime.pdb
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\QlBanHang\QuanLyBanHang\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.csprojAssemblyReference.cache
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.csproj.CopyComplete
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.dll
 C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.pdb
+C:\Users\Admin\Documents\GitHub\QlBanHang\QuanLyBanHang\QlBanHang\QuanLyBanHang\obj\Debug\QuanLyBanHang.csprojAssemblyReference.cache
