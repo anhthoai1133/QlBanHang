@@ -3,69 +3,86 @@
     ViewBag.Title = "Index";
     //Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <div class="container">
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Thêm Khách Hàng</button>
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src=" https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 style="color:red;text-align:center">Thêm Khách Hàng</h4>
+<div class="container">
+    <button type="button" class="btn btn-info btn-lg" id="btnAdd" data-toggle="modal" data-target="#myModal">Thêm Khách Hàng</button>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 style="color:red;text-align:center">Thêm Khách Hàng</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        @using (Html.BeginForm())
+                        {
+                            <div class="form-group">
+                                <label for="MaKH">Mã Khách Hàng:</label>
+                                @Html.TextBox("MaKH", null, new { @class = "form-control", @id = "MaKH" })
+                            </div>
+                            <div class="form-group">
+                                <label for="HoTenKH">Họ Tên Khách Hàng:</label>
+                                @Html.TextBox("HoTenKH", null, new { @class = "form-control" })
+                            </div>
+                            <div>
+                                <label for="DiaChi">Địa Chỉ:</label>
+                                @Html.TextBox("DiaChi", null, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label for="DienThoai">Điện Thoại</label>
+                                @Html.TextBox("DienThoai", null, new { @class = "form-control" })
+                            </div>
+                        }
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            @using (Html.BeginForm())
-                            {
-                                <div class="form-group">
-                                    <label for="MaKH">Mã Khách Hàng:</label>
-                                    @Html.TextBox("MaKH", null, new { @class = "form-control", @id = "MaKH" })
-                                </div>
-                                <div class="form-group">
-                                    <label for="HoTenKH">Họ Tên Khách Hàng:</label>
-                                    @Html.TextBox("HoTenKH", null, new { @class = "form-control" })
-                                </div>
-                                <div>
-                                    <label for="DiaChi">Địa Chỉ:</label>
-                                    @Html.TextBox("DiaChi", null, new { @class = "form-control" })
-                                </div>
-                                <div class="form-group">
-                                    <label for="DienThoai">Điện Thoại</label>
-                                    @Html.TextBox("DienThoai", null, new { @class = "form-control" })
-                                </div>
-                            }
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn" style="border-radius:10px" id="btnSave" data-dismiss="modal">Lưu</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" style="border-radius:10px" id="btnSave" data-dismiss="modal">Lưu</button>
                 </div>
             </div>
         </div>
-        <table id="tbnv" class="display">
-            <thead>
-                <tr>
-                    <td>Mã Khách Hàng</td>
-                    <td>Họ Tên Khách Hàng</td>
-                    <td>Địa Chỉ</td>
-                    <td>Điện Thoại</td>
-                </tr>
-            </thead>
-            <tbody id="lblData">
-            </tbody>
-        </table>
-        <script id="template" type="x-tmpl-mustache">
-            <tr>
-                <td>{{MaKH}}</td>
-                <td>{{HoTenKH}}</td>
-                <td>{{DiaChi}}</td>
-                <td>{{DienThoai}}</td>
-            </tr>
-        </script>
     </div>
+    <table id="tbnv" class="display">
+        <thead>
+            <tr>
+                <td>Mã Khách Hàng</td>
+                <td>Họ Tên Khách Hàng</td>
+                <td>Địa Chỉ</td>
+                <td>Điện Thoại</td>
+            </tr>
+        </thead>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>
 <script>
+    $("#btnAdd").click(function () {
+        $("#MaKH").val("");
+        $("#HoTenKH").val("");
+        $("#DiaChi").val("");
+        $("#DienThoai").val("");
+    })
+
     $("#btnSave").click(function () {
-        var kh = {
+            var kh = {
             makh: $('#MaKH').val(),
             hotenkh: $('#HoTenKH').val(),
             diachi: $('#DiaChi').val(),
@@ -77,6 +94,8 @@
             data: kh,
             dataType: 'json',
             success: function () {
+                $('#tbnv').DataTable().clear().draw();
+                $('#tbnv').DataTable().destroy();
                 getAllKH();
             },
             error: function (err) {
@@ -94,18 +113,32 @@
             dataType: 'json',
             success: function (result) {
                 console.log(result);
-                for (i = 0; i < result.length; i++) {
-                    var item = result[i];
-                    html += '<tr>';
-                    html += '<td>' + item.MaKH + '</td>';
-                    html += '<td>' + item.HoTenKH + '</td>';
-                    html += '<td>' + item.DiaChi + '</td>';
-                    html += '<td>' + item.DienThoai + '</td>';
-                    html += '<td><button class="btn btn-link" onclick="DeleleKH(' + `'` + item.MaKH + `'` + ')">Delete</button></td>';
-                    html += '<td><button class="btn btn-link" onclick="button(' + `'` + item.MaKH + `'` + ',' + `'` + item.HoTenKH + `'` + ',' + `'` + item.DiaChi + `'` + ',' + `'` + item.DienThoai + `'` + ')">Edit</button></td>';
-                    html += '<tr>';
-                }
-                $('#lblData').html(html);
+                $('#tbnv').DataTable({
+                    data: result,
+                    columns: [
+                        { 'data': 'MaKH' },
+                        { 'data': 'HoTenKH' },
+                        { 'data': 'DiaChi' },
+                        { 'data': 'DienThoai' },
+                        {
+                            mRender: function (data, type, row) {
+                                return '<button id="Edit"class="table-edit" data-id="Id" onclick="Test(' + row + ')">EDIT</button> / <button id="Delete" class="editor_remove" onclick="Delete(' + row.Id + ')">Delete</button>'
+                            }
+                        }
+                    ]
+                });
+                //for (i = 0; i < result.length; i++) {
+                //    var item = result[i];
+                //    html += '<tr>';
+                //    html += '<td>' + item.MaKH + '</td>';
+                //    html += '<td>' + item.HoTenKH + '</td>';
+                //    html += '<td>' + item.DiaChi + '</td>';
+                //    html += '<td>' + item.DienThoai + '</td>';
+                //    html += '<td><button class="btn btn-link" onclick="DeleleKH(' + `'` + item.MaKH + `'` + ')">Delete</button></td>';
+                //    html += '<td><button class="btn btn-link" onclick="button(' + `'` + item.MaKH + `'` + ',' + `'` + item.HoTenKH + `'` + ',' + `'` + item.DiaChi + `'` + ',' + `'` + item.DienThoai + `'` + ')">Edit</button></td>';
+                //    html += '<tr>';
+                //}
+                //$('#lblData').html(html);
             },
             error: function (err) {
                 console.log(err);
@@ -122,7 +155,7 @@
                 getAllKH();
                 setTimeout(() => {
                     alert("Xóa thành công");
-                },300)
+                }, 300)
             }
         })
     }
@@ -137,126 +170,126 @@
 </script>
 
 @*<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-            <h1 style="text-align:center; color:blue">THÔNG TIN KHÁCH HÀNG</h1>
-            @using (Html.BeginForm())
-            {
-                <div class="form-group">
-                    <label for="MaKH">Mã Khách Hàng:</label>
-                    @Html.TextBox("MaKH", null, new { @class = "form-control", @id = "MaKH" })
-                    <p class="text-danger">@ViewData["Loi1"]</p>
-                </div>
-                <div class="form-group">
-                    <label for="HoTenKH">Họ Tên Khách Hàng:</label>
-                    @Html.TextBox("HoTenKH", null, new { @class = "form-control" })
-                    <p class="text-danger">@ViewData["Loi2"]</p>
-                </div>
-                <div>
-                    <label for="DiaChi">Địa Chỉ:</label>
-                    @Html.TextBox("DiaChi", null, new { @class = "form-control" })
-                    <p class="text-danger">@ViewData["Loi3"]</p>
-                </div>
-                <div class="form-group">
-                    <label for="DienThoai">Điện Thoại</label>
-                    @Html.TextBox("DienThoai", null, new { @class = "form-control" })
-                    <p class="text-danger">@ViewData["Loi4"]</p>
-                </div>
-                
-            }
-            <table id="tbnv" class="display">
-                <thead>
-                    <tr>
-                        <td>Mã Khách Hàng</td>
-                        <td>Họ Tên Khách Hàng</td>
-                        <td>Địa Chỉ</td>
-                        <td>Điện Thoại</td>
-                    </tr>
-                </thead>
-                <tbody id="lblData">
-                </tbody>
-            </table>
-            <script id="template" type="x-tmpl-mustache">
-                <tr>
-                    <td>{{MaKH}}</td>
-                    <td>{{HoTenKH}}</td>
-                    <td>{{DiaChi}}</td>
-                    <td>{{DienThoai}}</td>
-                </tr>
-            </script>
-        </div>
-    </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <h1 style="text-align:center; color:blue">THÔNG TIN KHÁCH HÀNG</h1>
+                @using (Html.BeginForm())
+                {
+                    <div class="form-group">
+                        <label for="MaKH">Mã Khách Hàng:</label>
+                        @Html.TextBox("MaKH", null, new { @class = "form-control", @id = "MaKH" })
+                        <p class="text-danger">@ViewData["Loi1"]</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="HoTenKH">Họ Tên Khách Hàng:</label>
+                        @Html.TextBox("HoTenKH", null, new { @class = "form-control" })
+                        <p class="text-danger">@ViewData["Loi2"]</p>
+                    </div>
+                    <div>
+                        <label for="DiaChi">Địa Chỉ:</label>
+                        @Html.TextBox("DiaChi", null, new { @class = "form-control" })
+                        <p class="text-danger">@ViewData["Loi3"]</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="DienThoai">Điện Thoại</label>
+                        @Html.TextBox("DienThoai", null, new { @class = "form-control" })
+                        <p class="text-danger">@ViewData["Loi4"]</p>
+                    </div>
 
-</div>
-<button id="btnThem">Lưu</button>
-<script>
-    function getAllKH() {
-            var html = '';
-            $.ajax({
-                url: '/KhachHang/GetAllKH',
-                type: 'GET',
-                contentType: "application/json;charset=utf-8",
-                dataType: 'json',
-                success: function (result) {
-                    console.log(result);
-                    for (i = 0; i < result.length; i++) {
-                        var item = result[i];
-                        html += '<tr onclick="button(' + `'` + item.MaKH + `'` + ',' + `'` + item.HoTenKH + `'` + ',' + `'` + item.DiaChi + `'` + ',' + `'` + item.DienThoai + `'` +')">';
-                        html += '<td>' + item.MaKH + '</td>';
-                        html += '<td>' + item.HoTenKH + '</td>';
-                        html += '<td>' + item.DiaChi + '</td>';
-                        html += '<td>' + item.DienThoai + '</td>';
-                        html += '<td><button onclick="DeleleKH(' + `'` + item.MaKH +`'` + ')">Delete</button></td>';
-                        html += '<tr>';
+                }
+                <table id="tbnv" class="display">
+                    <thead>
+                        <tr>
+                            <td>Mã Khách Hàng</td>
+                            <td>Họ Tên Khách Hàng</td>
+                            <td>Địa Chỉ</td>
+                            <td>Điện Thoại</td>
+                        </tr>
+                    </thead>
+                    <tbody id="lblData">
+                    </tbody>
+                </table>
+                <script id="template" type="x-tmpl-mustache">
+                    <tr>
+                        <td>{{MaKH}}</td>
+                        <td>{{HoTenKH}}</td>
+                        <td>{{DiaChi}}</td>
+                        <td>{{DienThoai}}</td>
+                    </tr>
+                </script>
+            </div>
+        </div>
+
+    </div>
+    <button id="btnThem">Lưu</button>
+    <script>
+        function getAllKH() {
+                var html = '';
+                $.ajax({
+                    url: '/KhachHang/GetAllKH',
+                    type: 'GET',
+                    contentType: "application/json;charset=utf-8",
+                    dataType: 'json',
+                    success: function (result) {
+                        console.log(result);
+                        for (i = 0; i < result.length; i++) {
+                            var item = result[i];
+                            html += '<tr onclick="button(' + `'` + item.MaKH + `'` + ',' + `'` + item.HoTenKH + `'` + ',' + `'` + item.DiaChi + `'` + ',' + `'` + item.DienThoai + `'` +')">';
+                            html += '<td>' + item.MaKH + '</td>';
+                            html += '<td>' + item.HoTenKH + '</td>';
+                            html += '<td>' + item.DiaChi + '</td>';
+                            html += '<td>' + item.DienThoai + '</td>';
+                            html += '<td><button onclick="DeleleKH(' + `'` + item.MaKH +`'` + ')">Delete</button></td>';
+                            html += '<tr>';
+                        }
+                        $('#lblData').html(html);
+                    },
+                    error: function (err) {
+                        console.log(err);
                     }
-                    $('#lblData').html(html);
+
+                })
+
+        }
+
+        $("#btnThem").click(function () {
+            var kh = {
+                makh: $('#MaKH').val(),
+                hotenkh: $('#HoTenKH').val(),
+                diachi: $('#DiaChi').val(),
+                dienthoai: $('#DienThoai').val(),
+            };
+            $.ajax({
+                type: "POST",
+                url: '/KhachHang/AddKH1',
+                data: kh,
+                dataType: 'json',
+                success: function () {
+                    getAllKH();
                 },
                 error: function (err) {
                     console.log(err);
                 }
-
-            })  
-
-    }
-
-    $("#btnThem").click(function () {
-        var kh = {
-            makh: $('#MaKH').val(),
-            hotenkh: $('#HoTenKH').val(),
-            diachi: $('#DiaChi').val(),
-            dienthoai: $('#DienThoai').val(),
-        };
-        $.ajax({
-            type: "POST",
-            url: '/KhachHang/AddKH1',
-            data: kh,
-            dataType: 'json',
-            success: function () {
-                getAllKH();
-            },
-            error: function (err) {
-                console.log(err);
-            }
+            })
         })
-    })
 
-    function DeleleKH(id) {
-        $.ajax({
-            url: '/KhachHang/Delete',
-            type: "POST",
-            data: {id: id},
-            dataType: 'json',
-            success: function () {
-                getAllKH();
-            }
-        })
-    }
-    getAllKH();
-    function button(makh, hotenkh, diachi, dienthoai) {
-        $("#MaKH").val(makh);
-        $("#HoTenKH").val(hotenkh);
-        $("#DiaChi").val(diachi);
-        $("#DienThoai").val(dienthoai);
-    }
-</script>*@
+        function DeleleKH(id) {
+            $.ajax({
+                url: '/KhachHang/Delete',
+                type: "POST",
+                data: {id: id},
+                dataType: 'json',
+                success: function () {
+                    getAllKH();
+                }
+            })
+        }
+        getAllKH();
+        function button(makh, hotenkh, diachi, dienthoai) {
+            $("#MaKH").val(makh);
+            $("#HoTenKH").val(hotenkh);
+            $("#DiaChi").val(diachi);
+            $("#DienThoai").val(dienthoai);
+        }
+    </script>*@
 
