@@ -38,7 +38,7 @@
                         @using (Html.BeginForm())
                         {
                             <div class="form-group">
-                                <label for="MaNV">Mã nhân viên:</label>
+                                <label for="MaNV" id="id">Mã nhân viên:</label>
                                 @Html.TextBox("MaNV", null, new { @class = "form-control" })
                             </div>
                             <div class="form-group">
@@ -85,7 +85,7 @@
                     <td>Mã Nhân Viên</td>
                     <td>Họ Nhân Viên</td>
                     <td>Tên Nhân Viên</td>
-                    @*<td>Ngày Sinh</td>*@
+                    <td>Ngày Sinh</td>
                     <td>Địa Chỉ</td>
                     <td>Điện Thoại</td>
                     <td>Chỉnh sửa</td>
@@ -165,19 +165,19 @@
                         { 'data': 'MaNV' },
                         { 'data': 'HoNV' },
                         { 'data': 'TenNV' },
-                        //{
-                        //    'data': 'NgaySinh',
-                        //    'render': function (jsonDate) {
-                        //        var date = new Date(parseInt(jsonDate.substr(6)));
-                        //        var month = date.getMonth() + 1;
-                        //        return date.getDate() + "/" + month + "/" + date.getFullYear();
-                        //    }
-                        //},
+                        {
+                            'data': 'NgaySinh',
+                            'render': function (jsonDate) {
+                                var date = new Date(parseInt(jsonDate.substr(6)));
+                                var month = date.getMonth() + 1;
+                                return date.getDate() + "/" + month + "/" + date.getFullYear();
+                            }
+                        },
                         { 'data': 'DiaChi'  },
                         { 'data': 'DienThoai' },
                         {
                             mRender: function (data, type, row) {
-                                return '<button id="Edit"class="table-edit" data-id="Id" onclick="Test(' + row + ')">EDIT</button> / <button id="DeleteNV" class="editor_remove" onclick="Delete(' + row.Id + ')">Delete</button>'
+                                return '<button class="table-edit" data-id="Id" onclick="Edit(\'' + row['MaNV'] + '\',\'' + row['HoNV'] + '\',\'' + row['TenNV'] + '\',\'' + row['NgaySinh'] + '\', \'' + row['DiaChi'] + '\',\'' + row['DienThoai'] + '\')">EDIT</button> | <button class="editor_remove" onclick="DeleteNV(' + row['MaNV'] + ')">Delete</button>'
                             }
                             
                         }
@@ -219,8 +219,8 @@
         })
     }
 
-    function Test(id) {
-        console.log(id);
+    function Test(row) {
+        console.log(row);
     }
 
 
@@ -231,6 +231,8 @@
             data: { id: id },
             dataType: 'json',
             success: function () {
+                $('#tbvn').DataTable().clear().draw();
+                $('#tbvn').DataTable().destroy();
                 getAllNV();
                 setTimeout(() => {
                     alert("Xóa thành công");
@@ -240,17 +242,17 @@
         })
 
     }
-    function Edit(manv, honv, tennv, ngaysinh, gioitinh, diachi, dienthoai) {
+    function Edit(manv, honv, tennv,ngaysinh,diachi, dienthoai) {
         $("#MaNV").val(manv);
         $("#HoNV").val(honv);
         $("#TenNV").val(tennv);
         $("#NgaySinh").val(ngaysinh);
-        if (gioitinh.trim().toLowerCase() == "true") {
-            $("#GioiTinh").val(1)
-        }
-        else {
-            $("#GioiTinh").val(0)
-        }
+        //if (gioitinh.trim().toLowerCase() == "true") {
+        //    $("#GioiTinh").val(1)
+        //}
+        //else {
+        //    $("#GioiTinh").val(0)
+        //}
         $("#DiaChi").val(diachi);
         $("#DienThoai").val(dienthoai);
         $("#myModal").modal();

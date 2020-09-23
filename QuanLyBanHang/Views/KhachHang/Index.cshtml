@@ -66,6 +66,7 @@
                 <td>Họ Tên Khách Hàng</td>
                 <td>Địa Chỉ</td>
                 <td>Điện Thoại</td>
+                <td>Chỉnh Sửa</td>
             </tr>
         </thead>
         <tfoot>
@@ -82,7 +83,7 @@
     })
 
     $("#btnSave").click(function () {
-            var kh = {
+        var kh = {
             makh: $('#MaKH').val(),
             hotenkh: $('#HoTenKH').val(),
             diachi: $('#DiaChi').val(),
@@ -121,8 +122,8 @@
                         { 'data': 'DiaChi' },
                         { 'data': 'DienThoai' },
                         {
-                            mRender: function (data, type, row) {
-                                return '<button id="Edit"class="table-edit" data-id="Id" onclick="Test(' + row + ')">EDIT</button> / <button id="Delete" class="editor_remove" onclick="Delete(' + row.Id + ')">Delete</button>'
+                            "mRender": function (a, b, c) {
+                                return '<button class="table-edit" data-id="Id" onclick="button(\'' + c['MaKH'] + '\',\'' + c['HoTenKH'] + '\',\'' + c['DiaChi'] + '\',\'' + c['DienThoai'] + '\')">EDIT</button> / <button class="table-delete" data-id="Id" onclick="DeleleKH(\'' + c['MaKH'] + '\')">Delete</button>'
                             }
                         }
                     ]
@@ -145,6 +146,9 @@
             }
         })
     }
+    function Test(id) {
+        console.log(id);
+    }
     function DeleleKH(id) {
         $.ajax({
             url: '/KhachHang/Delete',
@@ -152,6 +156,8 @@
             data: { id: id },
             dataType: 'json',
             success: function () {
+                $('#tbnv').DataTable().clear().draw();
+                $('#tbnv').DataTable().destroy();
                 getAllKH();
                 setTimeout(() => {
                     alert("Xóa thành công");
